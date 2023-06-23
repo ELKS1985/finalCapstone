@@ -1,0 +1,75 @@
+print("------------------------- Garden Path Sentences -------------------------------------")
+
+# This is an example Python programme which uses the spaCy to implement 
+# tokenisation and named entity recognition for a list of 'garden path'
+# sentences.
+
+# ------------------------- spaCy -------------------------------------
+import spacy
+nlp = spacy.load('en_core_web_sm')
+    
+# ------------------------- Garden Path Sentences -------------------------------------
+# Grammatically correct sentences that start in such a way that a reader's most likely interpretation
+#  will be incorrect; the reader is lured into a parse that turns out to be a dead end or yields a
+# clearly unintended meaning.
+
+# create 5 garden path sentences
+sentence1 = nlp("\nThe old man the boat.\n")
+sentence2 = nlp("\nThe horse raced past the barn fell.\n")
+sentence3 = nlp("\nThe cotton clothing is made of grows in Mississippi.\n")
+sentence4 = nlp("\nMary gave the child a Band-Aid.\n")
+sentence5 = nlp("\nThat Jill is never here hurts.\n")
+
+# add all sentences to a list
+gardenpathSentences = [sentence1, sentence2, sentence3, sentence4, sentence5]
+
+
+# ------------------------- Tokenisation -------------------------------------
+# Tokenise each sentence and perform named entity recognition by process of splitting a piece of text\
+# into meaningful words, symbols, punctuation, spaces and other elements, creating non-destructive “tokens”. 
+
+for sentence in gardenpathSentences:
+    # Print original sentence:
+    print(sentence)
+
+    # Spliting the sentence into unique elements
+    [token.orth_ for token in sentence]
+
+    # Print tokenised sentences
+    print(f"Sentence 'Tokenised'")
+    print([(token, token.orth_, token.orth) for token in sentence])  # For each element in the sentence
+    print()
+    
+    
+# -------------------------  Named Entity Recognition -------------------------------------
+# Classify named entities found in a text into pre-defined categories using SpaCy's statistical model.
+# Parse the text, accessing dentified entities using doc objects .ents method. 
+# Access additional token methods, specifically .label_ and .label:
+
+    # Print entity recognition for each sentence
+    print(f"Sentence 'entity recognition'")
+    print([(i, i.label_, i.label) for i in sentence.ents])  # Search for recognised elements such as people, events and places
+    print()
+    print("---------------------------------------------------------------------------")
+
+input()
+
+# ------------------------- Examination -------------------------------------
+# spaCy categorises each sentence by using spacy.explain, which look ups and prints the meaning of entities not understood. 
+spacy.explain
+print("---------------------------------------------------------------------------")
+print(spacy.explain("GPE"))
+print(spacy.explain("PERSON"))
+
+
+# ------------------------- Comments About Entities -------------------------------------
+# Entity One =  GPE
+# Explaination = [(Mississippi, 'GPE', 384)]
+# Entity One, 'GPE' did make sense in terms of the word associated with it, as 'Mississippi' is a Geopolitical entity.
+# This is the only Geopolitical entity I expected spaCy to detect.
+
+
+# Entity Two = PERSON
+# Explaination = [(Jill, 'PERSON', 380)]
+# Entity Two, 'PERSON' makes sense in terms of the word associated with it, as 'Jill' is a person's name. 
+# I expected spaCy would also detect 'Mary' and perhaps 'man'. 
