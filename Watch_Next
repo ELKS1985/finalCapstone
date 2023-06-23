@@ -1,0 +1,55 @@
+'''''''''
+This is an example Python programme which uses a word vector semantic similarity in the 
+description of movies.
+It has a function to tell users which movie to watch next if they have watched 'Planet Hulk'. 
+'''''''''
+
+
+# import spacy
+import spacy
+
+# Return a Language object containing all components and data needed to process text.
+nlp = spacy.load('en_core_web_md')
+
+
+# ----------------  watch_next function  -------------------
+
+# Function tells a user which movie to watch next:
+def watch_next(description):
+    # Open and load file contents
+    movies = open("movies.txt", "r")
+    # declare and initialise a list to store movie list splint into movie title and description
+    split_list = []
+
+    # Split movies into title and description and store in a list
+    for i in movies:
+        split_list.append(i.split(':'))
+
+    # count number of movies in text file
+    count = len(split_list)
+    # declare and initialise list to store similarity values
+    similarity_list = []
+
+    model_sentence = nlp(description)
+
+    # iterate as many times as the number of movies in the text file
+    for i in range(0, count):
+        # check the similarity between the movie description with the recently watched movie description
+        similarity_list.append(nlp(split_list[i][1]).similarity(model_sentence))
+
+    # get max similarity value
+    max_similarity = max(similarity_list)
+    # get an index of max similarity value
+    max_similarity_index = similarity_list.index(max_similarity)
+
+    # return movie title similar to watched movie
+    return split_list[max_similarity_index][0]
+
+# movie description for 'Planet Hulk':
+Planet_Hulk = """Will he save their world or destroy it? When the Hulk becomes too 
+dangerous for the Earth, the Illuminati trick Hulk into a shuttle and launch him into 
+space to a planet where the Hulk can live in peace. Unfortunately, Hulk land on the
+planet Sakaar where he is sold into slavery and trained as a gladiator."""
+
+# Function returns which movie user should watch next if they have watched Planet Hulk
+print("We recommend that you watch this movie next: " + watch_next(Planet_Hulk))
