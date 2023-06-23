@@ -1,0 +1,72 @@
+# This is an example Python programme which calculates the total cost for a user's
+# holiday, using input values and options for: plane cost, hotel cost, and car rental cost.
+# The programme is compatible with different input options.
+
+# User inputs ------------------------------------------------------
+# city_flight: The city they will be flying to. (each city has a different flight costs)
+# num_nights: The number of nights they will be staying at a hotel
+# rental_days: The number of days that they will be hiring a car for.
+
+# Functions --------------------------------------------------------
+# hotel_cost: This function takes num_nights as an argument, and 
+# returns a total cost for the hotel stay.
+
+# plane_cost: This function takes city_flight as an argument and
+# returns a cost for the flight (if/else if statements used to retrieve a price based on the chosen city)
+
+# car_rental: his function takes rental_days as an argument and 
+# returns the total cost of the car rental (based on daily rental cost.)
+
+# DEFINE A FUNCTION
+def add_one(x): # function called add_one has one parameter, x y = x +
+    return y
+
+
+# holiday_cost: This function will take the three arguments hotel_cost, plane_cost, car_rental. 
+# Total cost of holiday is returned by calling the hotel_cost, plane_cost and car_rental arguments
+
+
+# CALLING A FUNCTION
+
+def add_one(x): # function called add_one has one parameter, x y = x +1
+    return y
+result_num = add_one(5) #create a variable and set it to the value returned by the function. When the function is called, 5 is passed in as an argument. print(result_num) #prints 6
+num_plus_one = add_one(10) # The result that the 'add_one' function returns is stored in the num_plus_one variable.
+print ("10 plus 1 is equal to: " + str(num_plus_one)+".") # Or even
+num = 10
+print ("10 plus 1 is equal to: " + str(add_one(num))+".")
+
+# Output:
+# Print out all the details about the holiday in a readable way!
+
+
+# ------------------------------------------------------
+
+# FUNCTION PARAMETERS
+result_num = add_one(5)
+
+# SCOPE
+def adding(a, b):
+    total = a + b
+    return (description + str(total))
+x= 2
+y= 3
+description = "Total: "
+sum = adding(x, y)
+print(sum)
+
+
+# DEFAULT VALUES
+
+def multiply(num1,num2=5):
+    total = num1 * num2
+    print(f"{num1} * {num2} = {total}")
+times_5 = multiply(6)
+
+# change the value of num2
+def multiply(num1,num2 = 5):
+    total = num1 * num2
+    print(f"{num1} * {num2} = {total}")
+times_7 = multiply(6, 7)
+# call the function using keyword arguments
+times_9 = multiply(num2=6, num1=9)
