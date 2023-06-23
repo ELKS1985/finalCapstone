@@ -1,0 +1,95 @@
+# This is an example Python programme showing variables, various data types and
+# if-else-elif statements.
+
+# Depending on the specified user input, the programme will output EITHER the
+# amount of interest (simple or compound) the user will earn, OR the amount the
+# user will have to repay each month.
+
+import math
+
+print(
+    str(
+        "\nWelcome to the \033[96mSmall Financial Company\x1B[0m Finance Calculator!\
+            \n\n\x1B[3mYou have two options:\x1B[0m\
+            \n\033[1;4minvestment\033[0m: to calculate the amount of interest you'll earn on your investment,\x1B[3m or \x1B[0m \n\033[1;4mbond\033[0m: to calculate how much your mortgage repayments will be."
+    )
+)
+
+calculator_type = input(
+    str("\nPlease enter either 'investment' or 'bond' to proceed:\n")
+).lower()
+
+
+if calculator_type == "investment":
+    if True:
+        print(
+            "\nYou have chosen investment. Let's calculate the amount of interest you'll\
+        earn on your investment."
+        )
+        P = float(input("\nHow much will you deposit? (do not include ',') \n£"))
+        interest_rate = float(
+            input("\nAt which interest rate? (numbers only, please do not use %) \n")
+        )
+        r = interest_rate / 100
+        t = float(input("\nHow many years do you plan to invest for? \n"))
+        interest_type = str(
+            input("\nWould you like to calcuate 'simple' or 'compound' interest?:\n")
+        ).lower()
+
+        if interest_type == "simple":
+            interest_total = P * (1 + r * t)
+            A = interest_total
+            print(
+                f"\n\n\nIf you invest an initial deposoit of £{P:.2f}, with simple \
+            interest of {interest_rate:.0f}%, over {t:.0f} years: \nYou will \
+            have \033[96m£{A:.2f}\x1B[0m. ".format()
+            )
+
+        if interest_type == "compound":
+            interest_total = P * math.pow((1 + r), t)
+            A = interest_total
+            print(
+                f"\n\n\nIf you invest an initial deposoit of £{P:.2f}, with compound\
+                interest at {interest_rate:.0f}%, over {t:.0f} years: \nYou will\
+                have \033[96m£{A:.2f}\x1B[0m. ".format()
+            )
+
+
+elif calculator_type == "bond":
+    print(
+        "\nYou have chosen mortgage repayment. Let's calculate how much you'll have to pay per month on your bond."
+    )
+
+    # Define initial value of loan, annual interest rate and length of loan in years.
+    P = float(
+        input("\nWhat is the current value of the property? (do not include ',') \n£")
+    )
+    rate = float(
+        input("\nWhat is the interest rate? (numbers only, please do not use %) \n")
+    )
+    years = float(input("\nHow many years do you plan to repay for? \n"))
+
+    i = rate / 1200
+    n = years * 12
+
+    A = (i * P) / (1 - (1 + i) ** (-n))  # calculates repayment pcm
+
+    print(
+        f"\n\n\nYour monthly repayments (on a property valued at £{P:.2f} with an interest rate of {rate:.1f}%)\nWill be: \033[96m£{A:.2f}\x1B[0m per month, when paid over {years:.0f} years. ".format()
+    )
+
+
+#    print(f"\n\n\nYour monthly repayments (on a property valued at £{P:.2f} with an interest rate of {i:.1f}%) will be: \n=\033[96m£{monthly_repayment:.2f}\x1B[0m, when paid over {n:.0f} years. ".format())
+
+else:
+    print(
+        str(
+            "\nSorry, we can only calculate an 'investment' or 'bond'. Please try again.\n"
+        )
+    )
+
+print(
+    str(
+        "\n\n\n****** Thank you for using the \033[96mSmall Financial Company\x1B[0m finance calculator ******\n\n\n"
+    )
+)
