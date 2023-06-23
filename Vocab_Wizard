@@ -1,0 +1,130 @@
+# This is an example Python programme which creates new words by adding prefixes and suffixes. 
+
+# Given a set of words, the programme correctly transforms words with correct spelling by adding
+# the prefix to the beginning or the suffix to the ending.
+
+# There are four functions:
+
+# 1: Add a prefix to a word 
+# 2: Add prefixes to word groups 
+# 3: Remove a sufix from a word 
+# 4: Extract and transform a word 
+
+# -------------------------------------------------------------------------------------------
+
+from operator import concat
+import re
+
+def Green(skk):
+    print("\033[92m {}\033[00m".format(skk))
+
+
+def Wizard(ssk):
+    print("\033[01;92m{}\033[00m".format(ssk))
+
+
+# 1. Add a prefix to a word ------------------------------------------------------------------
+
+# The add_prefix_un() function takes word as a parameter and returns a new un prefixed word
+# The purpose of this function is to allow a user to make negative, or "not" words by adding
+#  un to them.
+
+def add_prefix_un(word):
+    '''
+ 
+    :param word: str of a root word
+    :return:  str of root word with un prefix
+ 
+    This function takes `word` as a parameter and
+    returns a new word with an 'un' prefix.
+    '''
+    return concat('un', word)
+
+# 2. Add prefixes to word groups -----------------------------------------------------------------
+
+# The make_word_groups(<vocab_words>) function takes a vocab_words as a parameter in the 
+# following form: [<prefix>, <word_1>, <word_2> .... <word_n>], and returns a string with the prefix applied
+# to each word that looks like: '<prefix> :: <prefix><word_1> :: <prefix><word_2> :: <prefix><word_n>'
+
+# The purpose of this function is to allow the user to add one of the four common prefixes:
+# en (meaning to 'put into' or 'cover with'), pre (meaning 'before' or 'forward'), auto 
+# (meaning 'self' or 'same'), and inter (meaning 'between' or 'among').
+
+def make_word_groups(vocab_words: list[str]):
+
+    '''
+ 
+    :param vocab_words: list of vocabulary words with a prefix.
+    :return: str of prefix followed by vocabulary words with
+             prefix applied, separated by ' :: '.
+ 
+    This function takes a `vocab_words` list and returns a string
+    with the prefix  and the words with prefix applied, separated
+     by ' :: '.
+    '''
+    vocab_words.insert(1, '')
+    prefix, *words = vocab_words
+    return ' :: '.join(concat(prefix, word) for word in words)
+
+
+# 3. Remove a suffix from a word -----------------------------------------------------------------------------
+
+# The remove_suffix_ness(<word>) function takes in a word str, and returns the root word without 
+# the 'ness' suffix, a common suffix that means 'state of being'.
+
+# The purpose of this function removing the 'ness' suffix, is to allow the user find the original root word
+# whilst managing these spelling rules: 
+# If the root word originally ended in a consonant followed by a 'y', then the 'y' was changed to 'i'. 
+# Removing 'ness' needs to restore the 'y' in those root words. e.g. happiness --> happi --> happy.
+
+
+def remove_suffix_ness(word):
+    '''
+ 
+    :param word: str of word to remove suffix from.
+    :return: str of word with suffix removed & spelling adjusted.
+ 
+    This function takes in a word and returns the base word with `ness`
+    removed.
+    '''
+    return concat(word[:-5], 'y') if word.endswith('iness') else word[:-4]
+
+
+# 4. Extract and transform a word -----------------------------------------------------------------------------
+
+# The adjective_to_verb(<sentence>, <index>) function that takes two parameters. A sentence using the 
+# vocabulary word, and the index of the word, once that sentence is split apart. The function should return the 
+# extracted adjective as a verb.
+
+# The purpose of this function is to allow the user to "verbify" the word (where an adjective becomes a verb 
+# by adding an en suffix) by extracting an adjective from a sentence and turning it into a verb. 
+
+def adjective_to_verb(sentence, index):
+    '''
+ 
+    :param sentence: str that uses the word in sentence
+    :param index:  index of the word to remove and transform
+    :return:  str word that changes the extracted adjective to a verb.
+ 
+    A function takes a `sentence` using the
+    vocabulary word, and the `index` of the word once that sentence
+    is split apart.  The function should return the extracted
+    adjective as a verb.
+    '''
+    return concat(re.findall(r'\w+', sentence)[index], 'en')
+
+def intro():
+    Wizard("\n\n\n\
+Hello Little Sister...\n\n\
+I'm the English Vocabulary Homework Wizard!\n\n\
+Give me a word, or a set of words and i'll correctly\n\
+transform them to create new words by\n\
+adding prefixes and suffixes.")
+
+def activities():
+    print("\n\n\
+I have four activities you can choose from:\n\
+1. Add a prefix to a word\n\
+2. Add prefixes to word groups\n\
+3. Remove a sufix from a word\n\
+4. Extract and transform a word\n")
