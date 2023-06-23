@@ -1,0 +1,607 @@
+# This is an example Python programme for a Cafe Food Management programme.
+# It has defined functions, nested menus and used exception handling.
+# It uses lists and dictionaries to store menu and stock information.
+# Lists: menu_list, menu_prices, stock_values, stock_levels.
+# convert(lst): *Developer only* function easily generates key-value
+# / dictionary pairs from lists.
+# Dictionaries: menu_items, menu_dict, stock_value_dict, stock_level_dict.
+# Menu display functions enable user to choose to display an updated/new menu,
+# /or a vegetarian(V) only menu. There is potential to expand this function to /
+# include allergen codes, e.g GF, Vg, Df.
+# Calculate functions: loop through the lists and dictionaries to output values:
+# stock_value_calc, menu_sale_calc, and projected_net_profit.
+# Management functions: enable users to check stock levels/values,
+# /check menu prices plus add, record prices for, remove, replace, and delete menu items.
+# *Developer only* manual override versions of management functions, defined.
+
+############## LISTS ################
+# Cafe menu items stored in menu_list
+menu_list = [
+    "Smoked Salmon",
+    "Scrambled Egg",
+    "Grilled Cheese (V)",
+    "Smashed Avocado (V)",
+    "Scrambled Tofu (V)",
+    "Cottage Pie",
+    "Beef and Ale Pie",
+    "Lentil Lasagne Verdi (V)",
+    "Butternut Squash & Chickpea Curry (V)",
+]
+
+
+def menu_items():
+    for food in menu_list:
+        print(food)  # 'food' assignment loops through all items in menu_list
+
+
+def print_menu():
+    print("Here's today's menu: ")
+    menu_items()
+
+
+# Numerical values stored as lists: (menu prices, stock values and stock levels.)
+menu_prices = [12.00, 6.00, 6.00, 6.00, 9.00, 15.00, 12.00, 12.00, 4.50, 9.50]
+stock_values = [4.00, 2.00, 2.00, 2.00, 3.00, 5.00, 4.00, 4.00, 1.50, 3.50]
+stock_levels = [40, 72, 81, 42, 58, 34, 42, 29, 41, 38]
+
+
+############## DICTIONARIES ################
+
+
+"""""" """
+# Developer ONLY: loop function converts a list to a dictionary by
+# generating key-value pairs from lists:
+def convert(lst):
+    menu_dict = {}  # empty dictionary 'res_dict' stores the key-value pairs.
+    for i in range(0, len(lst), 1):  # for loop iterates over the list.
+        menu_dict[lst[i]] = stock_levels[i]  # key = i, value = i
+    return menu_dict  # After interaiton of all pairs complete, dictionary is returned.
+menu_dict = ["a", 1, "b", 2, "c", 3]  # Prints the resulting dictionary.
+# print(convert(menu_list))
+""" """"""
+
+# Menu items + prices charged to customers:
+menu_prices_dict = {
+    "Smoked Salmon": 12.0,
+    "Scrambled Egg": 6.0,
+    "Grilled Cheese (V)": 6.0,
+    "Smashed Avocado (V)": 6.0,
+    "Scrambled Tofu (V)": 9.0,
+    "Cottage Pie": 15.0,
+    "Beef and Ale Pie": 12.0,
+    "Lentil Lasagne Verdi (V)": 12.0,
+    "Butternut Squash & Chickpea Curry (V)": 4.5,
+}
+
+
+def menu_prices_sum():  # Sum value of 1 unit for each menu item
+    print(sum(menu_prices_dict.values()))
+
+
+# Stock list + value/cost paid per item:
+stock_value_dict = {
+    "Smoked Salmon": 4.0,
+    "Scrambled Egg": 2.0,
+    "Grilled Cheese (V)": 2.0,
+    "Smashed Avocado (V)": 2.0,
+    "Scrambled Tofu (V)": 3.0,
+    "Cottage Pie": 5.0,
+    "Beef and Ale Pie": 4.0,
+    "Lentil Lasagne Verdi (V)": 4.0,
+    "Butternut Squash & Chickpea Curry (V)": 1.5,
+}
+
+
+def stock_value_sum():  # Sum value of 1 unit for each stock item
+    print(sum(stock_value_dict.values()))
+
+
+# Stock list + stock levels for each item:
+stock_level_dict = {
+    "Smoked Salmon": 40,
+    "Scrambled Egg": 72,
+    "Grilled Cheese (V)": 81,
+    "Smashed Avocado (V)": 42,
+    "Scrambled Tofu (V)": 58,
+    "Cottage Pie": 34,
+    "Beef and Ale Pie": 42,
+    "Lentil Lasagne Verdi (V)": 29,
+    "Butternut Squash & Chickpea Curry (V)": 41,
+}
+
+
+def stock_level_sum():  # Sum of total number of items in stock level dict
+    print(sum(stock_level_dict.values()))
+
+
+############## DISPLAY FUNCTIONS ################
+
+
+# To be displayed in event of unexpected events/user inputs.
+# continue_or_not redirects user.
+def invalid_input_msg():
+    (print("\n\n *********** There has been a complication *********** "))
+    (print(" ******* I can't work with that information! ********* "))
+    choice = input("\n\n\033[30;42m Do you seek continuation? (Y,N): \033[0m ")
+    while True:
+        if choice.upper() == "Y":
+            cafe_menu()
+        if choice.upper() == "N":
+            good_bye()
+            break
+        elif ValueError:
+            invalid_input_msg()
+            break
+        else:
+            Exception
+            invalid_input_msg()
+
+
+def continue_or_no():
+    choice = input("\n\n\033[30;42m Do you want to continue? (Y,N): \033[0m ")
+    while True:
+        if choice.upper() == "Y":
+            cafe_menu()
+            break
+        if choice.upper() == "N":
+            good_bye()
+            break
+        elif ValueError:
+            invalid_input_msg()
+            break
+        else:
+            Exception
+            invalid_input_msg()
+
+
+def cafe_menu():
+    print("\n\033[32;40m *** Main Menu Options *** \033[0m ")
+    print("1. Add a new menu item")
+    print("2. Record menu item price(s)")
+    print("3. Print an updated menu")
+    print("4. Remove a menu item")
+    print("5. Perform a calculation")
+    print("6. Exit")
+    menu_choice = input("\033[30;42m Enter a function number: \033[0m ")
+    while True:
+        if menu_choice == "1":
+            add_item()
+            continue_or_no()
+            break
+        if menu_choice == "2":
+            record_price()
+            continue_or_no()
+            break
+        if menu_choice == "3":
+            print_new_menu()
+            continue_or_no()
+        if menu_choice == "4":
+            remove_item()
+            continue_or_no()
+        if menu_choice == "5":
+            calc_menu()
+            continue_or_no()
+        if menu_choice == "6":
+            good_bye()
+            break
+        else:
+            invalid_input_msg()
+
+
+def add_item():  # Adds a new item and its value to the end of the menu
+    print("\n\033[32;40m 1. Add a new menu item \033[0m ")
+    add_item = input("\033[30;42m Enter the name of your new menu item: \033[0m ")
+    while True:
+        if add_item.upper in menu_list:
+            print(f"\n Menu item: {add_item} is already in the menu.")
+            continue_or_no()
+            break
+        else:
+            add_item.upper not in menu_list
+        menu_list.append(f"{add_item}")
+        print(f"\nNew menu item ( {add_item} ) has been added to your menu:")
+        menu_items()
+        break
+
+
+"""""" '''''"''' """""" """'
+############## MANUAL MENU/ITEM MANAGEMENT FUNCTIONS  ################ 
+############## changes code, develper use only #######################
+# replacing an item in the menu_list:
+def replace_list_item():
+    menu_list[2] = "Quinoa Burger (V)"  # replaces "Grilled Cheese and Ham Sarnie"
+    print("Menu with replaced item:")
+    for food in menu_list:
+        print(food)  # Loops through lists and prints out every item.
+ # adding an item to the end of the menu_list:
+def add_list_item():
+    menu_list.append("Vegetable Chilli and Nachos (V)")
+    print("Menu with added item:")
+    for food in menu_list:
+        print(food)  # Loops through lists and prints out every item.
+# deleting an item from the menu_list:
+def del_list_item():
+    del menu_list[3]  # removes "Steak and Chips"
+    print("Menu with removed item:")
+    for food in menu_list:
+        print(food)  # Loops through lists and prints out every item.
+############## MANUAL MENU/ITEM MANAGEMENT FUNCTIONS  ################ 
+############## changes code, develper use only #######################
+""" """""" ""
+
+
+############## CALCULATION FUNCTIONS ################
+# ----------------CALCULATION MENU --------------------------
+def calc_menu():
+    print("\n\033[32;40m *** Calculation Menu *** \033[0m ")
+    print("\033[32;40m For individual items: \033[0m ")
+    print("1. Cost value for all individual stock items.")
+    print("2. Menu sale value for all indivdual stock items")
+    print("3. Net profit projection for all individual stock items.")
+    print("\033[32;40m For all stock: \033[0m ")
+    print("4. Total cost value of current stock items:")
+    print("5. Total menu sale value of all current stock:")
+    print("6. Total net profit projection for all current stock:")
+    print("7. Exit")
+    menu_choice = input("\033[30;42m Enter a function number: \033[0m ")
+    while True:
+        if menu_choice == "1":
+            stock_level_cost_calc()
+            calc_or_no()
+            break
+        if menu_choice == "2":
+            menu_sale_calc()
+            calc_or_no()
+            break
+        if menu_choice == "3":
+            projected_net_calc()
+            calc_or_no()
+            break
+        if menu_choice == "4":
+            total_stock_value()
+            calc_or_no()
+            break
+        if menu_choice == "5":
+            total_sales_value()
+            calc_or_no()
+            break
+        if menu_choice == "6":
+            total_net_value()
+            calc_or_no()
+            break
+        if menu_choice == "7":
+            cafe_menu()
+            break
+
+        elif ValueError:
+            invalid_input_msg()
+
+
+def calc_or_no():
+    choice = input(
+        "\n\n\033[30;42m Would you like to perform another calculation? (Y,N): \033[0m "
+    )
+    while True:
+        if choice.upper() == "Y":
+            calc_menu()
+        if choice.upper() == "N":
+            cafe_menu()
+            break
+        elif ValueError:
+            invalid_input_msg()
+        else:
+            Exception
+            invalid_input_msg()
+
+
+# COST PRICE - generating an item value(s) dictionary for current stock levels:
+# Calculates the value of items (cost price) for current stock levels:
+def stock_level_cost_calc():  # Cost value for all individual stock items.
+    print("\n\033[32;40m *** STOCK CHECK *** \033[0m ")
+    print(
+        "\033[32;40m 1. Item value(s) (at cost) for each menu item, at current\
+              stock levels: \033[0m "
+    )
+    stock_level_cost_calc = 0
+    for i in stock_level_cost_dict:
+        stock_level_cost_calc = stock_level_cost_dict[i]
+        print(i, stock_level_cost_calc)
+
+
+# Converts the value of items (cost price) for current stock levels into a dictionary:
+def convert(stock_level_cost_calc):
+    menu_dict = {}  # empty dictionary 'res_dict' stores the key-value pairs.
+    for i in range(0, len(stock_level_cost_calc), 1):
+        menu_dict[stock_level_cost_calc[i]] = stock_levels[i]  # key = i, value = i
+        return (
+            menu_dict  # After interaiton of all pairs complete, dictionary is returned.
+        )
+    stock_level_cost_dict = ["a", 1, "b", 2, "c", 3]
+    print(stock_level_cost_dict)
+
+
+stock_level_cost_dict = {
+    "Smoked Salmon": 160.0,
+    "Scrambled Egg": 144.0,
+    "Grilled Cheese (V)": 162.0,
+    "Smashed Avocado (V)": 84.0,
+    "Scrambled Tofu (V)": 174.0,
+    "Cottage Pie": 170.0,
+    "Beef and Ale Pie": 168.0,
+    "Lentil Lasagne Verdi (V)": 116.0,
+    "Butternut Squash & Chickpea Curry (V)": 61.5,
+}
+
+
+# ------------------------------------------------------------------------------
+# 2. SALES PRICES - Dictionary of menu items (customer prices) for current stock levels.
+# The function which converts the sale value of items (customer price) for current /
+# stock levels into a dictionary:
+def convert(menu_sale_calc):
+    menu_dict = {}  # empty dictionary 'res_dict' stores the key-value pairs.
+    for i in range(0, len(menu_sale_calc), 1):
+        menu_dict[menu_sale_calc[i]] = stock_levels[i]
+        return (
+            menu_dict  # After interaiton of all pairs complete, dictionary is returned.
+        )
+    menu_sale_dict = ["a", 1, "b", 2, "c", 3]
+    print(menu_sale_dict)
+
+
+menu_sale_dict = {
+    "Smoked Salmon": 480.0,
+    "Scrambled Egg": 432.0,
+    "Grilled Cheese (V)": 486.0,
+    "Smashed Avocado (V)": 252.0,
+    "Scrambled Tofu (V)": 522.0,
+    "Cottage Pie": 510.0,
+    "Beef and Ale Pie": 504.0,
+    "Lentil Lasagne Verdi (V)": 348.0,
+    "Butternut Squash & Chickpea Curry (V)": 184.5,
+}
+
+
+# Calculates sale value(s) for menu items (customer price) for current stock levels
+def menu_sale_calc():
+    print("\n\033[32;40m *** STOCK CHECK *** \033[0m ")
+    print(
+        "\033[32;40m 2. Sales value (retail prices) for each menu item, at current\
+              stock levels: \033[0m "
+    )
+    menu_sale_calc = 0
+    for i in stock_level_dict:
+        menu_sale_calc = stock_level_dict[i] * menu_prices_dict[i]
+        print(i, menu_sale_calc)
+
+
+# -----------------------------------------------------------------------------------------
+# 3. SALES PROJECTIONS - expected salees value for all individual items
+# Converts projected net profit for current stock levels into a dictionary:
+def convert(projected_net_calc):
+    menu_dict = {}  # empty dictionary 'res_dict' stores the key-value pairs.
+    for i in range(0, len(projected_net_calc), 1):
+        menu_dict[projected_net_calc[i]] = stock_levels[i]  # key = i, value = i
+        return (
+            menu_dict  # After interaiton of all pairs complete, dictionary is returned.
+        )
+    projected_net_dict = ["a", 1, "b", 2, "c", 3]
+    print(projected_net_dict)
+
+
+# Dictionary of menu items (customer prices) for current stock levels.
+projected_net_dict = {
+    "Smoked Salmon": 320.0,
+    "Scrambled Egg": 288.0,
+    "Grilled Cheese (V)": 324.0,
+    "Smashed Avocado (V)": 168.0,
+    "Scrambled Tofu (V)": 348.0,
+    "Cottage Pie": 340.0,
+    "Beef and Ale Pie": 336.0,
+    "Lentil Lasagne Verdi (V)": 232.0,
+    "Butternut Squash & Chickpea Curry (V)": 123.00,
+}
+
+
+# Calculates projected net profits for individual items, at current stock levels.
+def projected_net_calc():
+    print("\n\033[32;40m *** STOCK CHECK *** \033[0m ")
+    (
+        "\n\033[32;47m 3. Net profit projection for each individual stock\
+      item: \033[0m "
+    )
+    print(
+        "\033[32;40m 3. Net profit projection for each menu item, at current \
+            stock levels (sales value - cost value): \033[0m "
+    )
+    projected_net_calc = 0
+    for i in menu_sale_dict:
+        projected_net_calc = menu_sale_dict[i] - stock_level_cost_dict[i]
+        print(i, projected_net_calc)
+
+
+# ---------------- SALES PROJECTIONS --------------------------
+# 4. Total cost value of current stock items:
+def total_stock_value():  # Sum of all items in predicted net dict
+    print("\n\033[32;40m *** SALES PROJECTIONS *** \033[0m ")
+    print("\033[32;40m Total cost value for all current stock: \033[0m ")
+    # for each stock item
+    # stock level x item cost = item stock value
+    # for i in men
+    # (sum(stock_level_cost_dict.values()))
+    stock_level_cost_sum()
+
+
+def stock_level_cost_sum():  # Sum of all items in predicted net dict
+    print(sum(stock_level_cost_dict.values()))
+
+
+# 5. Total menu sale value of all current stock
+def total_sales_value():  # Total menu sale value of all current stock
+    print("\n\033[32;40m *** SALES PROJECTIONS *** \033[0m ")
+    print("\033[32;40m Total sales value for all current stock: \033[0m ")
+    # total_sales_value
+    menu_sale_sum()
+
+
+def menu_sale_sum():
+    print(sum(menu_sale_dict.values()))
+
+
+# 6. Total net profit projection for all current stock
+def total_net_value():
+    print("\n\n\033[32;40m *** SALES PROJECTIONS *** \033[0m ")
+    print(
+        "\033[32;40m Projected net profit for all current stock (sales\
+              value minus cost value): \033[0m "
+    )
+    # total_net_value
+    total_net_value = (sum(stock_level_cost_dict.values())) - (
+        sum(stock_value_dict.values())
+    )
+    print(total_net_value)
+
+
+##### MENU/ITEM MANAGEMENT FUNCTIONS FOR USER #######
+# applying an operation to a list of elements (list comprehension) to\
+#  compile a new list
+# this would work for any additional cafe food codes, such as (GF) or (Vg)
+def vegetarian_menu():
+    print("\nVegetarian Menu:")
+    for i in menu_prices_dict.keys():
+        (i)
+        if "(V)" in i:
+            print(i)  # prints only the (V), or vegetarian menu items
+
+
+def customer_menu():
+    (print("\n\033[32;40m 3. Print an updated menu: \033[0m"))
+    for i in menu_prices_dict.keys():
+        (i)
+    for i in menu_prices_dict.values():
+        (i)
+    for i, j in menu_prices_dict.items():
+        print(i, j)
+
+
+def remove_item():  # Removes a specific item from the menu
+    (print("\n\033[32;40m 4.\033[4m Remove a menu item\033[0m"))
+    item_name = input("\033[30;42m Enter menu item name: \033[0m ")
+    while True:
+        if item_name.upper in menu_items:
+            del menu_items[item_name]
+            continue_or_no()
+        elif item_name.upper not in menu_items:
+            print(f"\n Menu item: {item_name} could not be found")
+            continue_or_no()
+        else:
+            Exception
+            (invalid_input_msg)
+
+
+def print_new_menu():  # Different menu type choices, room for code \
+    # expansion to include GF, Vg etc.
+    (print("\n\033[32;40m 3. Print a menu: \033[0m"))
+    print("\033[32;40m *** Menu Types *** \033[0m ")
+    print("1. Print - an item only menu")
+    print("2. Print - a standard customer menu (items and prices)")
+    print("3. Print - a (V) vegetarian menu ")
+    print("4. Exit")
+    print_menu = input("\n\033[30;42m Enter a function number: \033[0m ")
+    while True:
+        if print_menu == "1":
+            ("\n")
+            print("\033[32;40m *** 1. An item only menu *** \033[0m ")
+            menu_items()
+            continue_or_no()
+            break
+        if print_menu == "2":
+            ("\n")
+            print(
+                "\033[32;40m *** 2. A standard customer menu (items and prices) \
+                    *** \033[0m "
+            )
+            customer_menu()
+            continue_or_no()
+            break
+        if print_menu == "3":
+            ("\n")
+            print("\033[32;40m *** 3. A vegetarian item only menu (V) *** \033[0m ")
+            vegetarian_menu()
+            continue_or_no()
+            break
+        if print_menu == "4":
+            ("\n")
+            print("\033[32;40m *** 4. Exit *** \033[0m ")
+            cafe_menu()
+            break
+        elif Exception:
+            invalid_input_msg()
+    else:
+        ValueError
+        invalid_input_msg()
+
+
+def record_price():  # Record a price / new price for an existing menu item
+    print("\n\033[32;40m 2. Record menu item price(s) \033[0m ")
+    print("\n\033[32;40m Menu item price types \033[0m ")
+    print("1. Cost price for a menu item (value of stock) ")
+    print("2. Sale price for a menu item (price for customer) ")
+    print("3. Return to main menu")
+    price_type = input("\n\033[30;42m Enter a function number: \033[0m ")
+    while True:
+        if price_type == "1":
+            item_name = input(
+                "\033[30;42m Record price(s) for which menu item? \033[0m "
+            )
+            if item_name in menu_list:
+                print(f"\n1. Record cost price for {item_name} (value of stock)")
+                price_type_stock = input(
+                    f"\033[30;42m Enter cost price for {item_name} : \033[0m "
+                )
+                price_type = price_type_stock
+                continue_or_no()
+                break
+            else:
+                invalid_input_msg()
+        if price_type == "2":
+            item_name = input(
+                "\033[30;42m Record price(s) for which menu item? \033[0m "
+            )
+            if item_name in menu_list:
+                print(f"\n2. Record sale price for {item_name} (price for customer)")
+                price_type_customer = input(
+                    f"\033[30;42m Enter sale price for {item_name} : \033[0m "
+                )
+                price_type = price_type_customer
+                continue_or_no()
+                break
+            else:
+                invalid_input_msg()
+        if price_type == "3":
+            cafe_menu()
+            break
+
+        elif Exception:
+            invalid_input_msg()
+        else:
+            ValueError
+            (invalid_input_msg)
+
+
+def welcome():
+    print(
+        "\n\033[30;42m --------------- Cafe Food Management Software  ---------------\
+              \033[0m"
+    )
+    cafe_menu()
+
+
+def good_bye():
+    print(
+        "\n\033[30;42m --------------- Cafe Food Management Software closing, goodbye!\
+                --------------- \033[0m"
+    )
+    print("\n\n")
+
+
+welcome()
